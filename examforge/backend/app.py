@@ -67,6 +67,17 @@ def generate_exam():
     job_id = str(uuid.uuid4())
     jobs[job_id] = {"status": "queued", "step": 0, "result": None}
 
+    # If running on Vercel, run synchronously because threads aren't reliable
+    if os.environ.get("VERCEL"):
+        try:
+            result = run_examforge_pipeline(chapter_text, settings)
+            jobs[job_id]["status"] = "done"
+            jobs[job_id]["result"] = result
+            jobs[job_id]["step"]   = 5
+            return jsonify({"job_id": job_id, "status": "done", "result": result})
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
     thread = threading.Thread(
         target=run_job,
         args=(job_id, chapter_text, settings),

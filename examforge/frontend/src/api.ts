@@ -1,4 +1,6 @@
-const BASE = "http://localhost:5000/api";
+const BASE = window.location.origin.includes("localhost") 
+  ? "http://localhost:5000/api" 
+  : "/api";
 
 export interface ExamSettings {
   total_questions: number;
