@@ -25,6 +25,7 @@ export interface Question {
   question: string;
   options?: { A: string; B: string; C: string; D: string };
   correct_option?: string;
+  unit_id?: string;
   model_answer: string;
   key_points: string[];
   common_mistakes: string;
