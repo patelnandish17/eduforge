@@ -1,0 +1,17 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import UploadPage     from "./pages/UploadPage";
+import ProcessingPage from "./pages/ProcessingPage";
+import ResultsPage    from "./pages/ResultsPage";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<UploadPage />} />
+        <Route path="/processing/:jobId" element={<ProcessingPage />} />
+        <Route path="/results" element={<ResultsPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
